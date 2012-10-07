@@ -1,4 +1,3 @@
-# $Revision: 1.29 $, $Date: 2012/06/17 05:33:26 $
 Summary:	HarfBuzz - internationalized text shaping library - MinGW32 cross version
 Summary(pl.UTF-8):	Rasteryzer fontów TrueType - wersja skrośna dla MinGW32
 Name:		crossmingw32-harfbuzz

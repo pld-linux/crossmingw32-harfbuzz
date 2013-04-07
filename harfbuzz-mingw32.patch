@@ -1,0 +1,11 @@
+--- harfbuzz-0.9.15/src/hb-private.hh.orig	2013-03-19 12:04:53.000000000 +0100
++++ harfbuzz-0.9.15/src/hb-private.hh	2013-04-07 13:28:22.647401427 +0200
+@@ -184,7 +184,7 @@
+ #endif
+ 
+ 
+-#if (defined(__WIN32__) && !defined(__WINE__)) || defined(_MSC_VER)
++#if defined(_MSC_VER)
+ #define snprintf _snprintf
+ #endif
+ 

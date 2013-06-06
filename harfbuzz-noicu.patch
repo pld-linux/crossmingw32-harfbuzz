@@ -1,0 +1,17 @@
+--- harfbuzz-0.9.18/test/api/Makefile.am.orig	2013-05-28 21:26:21.000000000 +0200
++++ harfbuzz-0.9.18/test/api/Makefile.am	2013-06-06 09:11:36.923683118 +0200
+@@ -28,12 +28,13 @@
+ 	$(NULL)
+ 
+ test_unicode_CPPFLAGS = $(AM_CPPFLAGS)
++test_unicode_LDADD = $(LDADD)
+ if HAVE_GLIB
+ test_unicode_CPPFLAGS += $(GLIB_CFLAGS)
+ endif
+ if HAVE_ICU
+ test_unicode_CPPFLAGS += $(ICU_CFLAGS)
+-test_unicode_LDADD = $(LDADD) $(top_builddir)/src/libharfbuzz-icu.la
++test_unicode_LDADD += $(top_builddir)/src/libharfbuzz-icu.la
+ endif
+ 
+ 

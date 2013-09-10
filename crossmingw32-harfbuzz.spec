@@ -1,12 +1,12 @@
 Summary:	HarfBuzz - internationalized text shaping library - MinGW32 cross version
 Summary(pl.UTF-8):	Rasteryzer fontów TrueType - wersja skrośna dla MinGW32
 Name:		crossmingw32-harfbuzz
-Version:	0.9.19
+Version:	0.9.20
 Release:	1
 License:	MIT
 Group:		Development/Libraries
 Source0:	http://www.freedesktop.org/software/harfbuzz/release/harfbuzz-%{version}.tar.bz2
-# Source0-md5:	9782581ee6ef972554772e84ca448131
+# Source0-md5:	fe36a04a61a2562b8522d516fb36309d
 Patch0:		harfbuzz-mingw32.patch
 URL:		http://www.freedesktop.org/wiki/HarfBuzz
 BuildRequires:	autoconf >= 2.64
@@ -103,12 +103,14 @@ export PKG_CONFIG_LIBDIR=%{_pkgconfigdir}
 	--target=%{target} \
 	--build=i686-pc-linux-gnu \
 	--host=%{target} \
+	--disable-gtk-doc \
 	--disable-silent-rules \
 	--enable-static \
 	--with-cairo \
 	--with-freetype \
 	--with-glib \
 	--without-graphite2 \
+	--with-html-dir=%{_gtkdocdir} \
 	--without-icu \
 	--with-uniscribe
 
@@ -127,6 +129,8 @@ mv -f $RPM_BUILD_ROOT%{_prefix}/bin/*.dll $RPM_BUILD_ROOT%{_dlldir}
 %{target}-strip --strip-unneeded -R.comment -R.note $RPM_BUILD_ROOT%{_dlldir}/*.dll
 %{target}-strip -g -R.comment -R.note $RPM_BUILD_ROOT%{_libdir}/*.a
 %endif
+
+%{__rm} -rf $RPM_BUILD_ROOT%{_gtkdocdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT

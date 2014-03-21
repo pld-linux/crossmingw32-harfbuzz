@@ -1,5 +1,16 @@
 --- harfbuzz-0.9.15/src/hb-private.hh.orig	2013-03-19 12:04:53.000000000 +0100
 +++ harfbuzz-0.9.15/src/hb-private.hh	2013-04-07 13:28:22.647401427 +0200
+@@ -33,6 +33,10 @@
+ #include "config.h"
+ #endif
+ 
++#ifndef _WIN32_WINNT
++#define _WIN32_WINNT 0x0600
++#endif
++
+ #include "hb.h"
+ #define HB_H_IN
+ #ifdef HAVE_OT
 @@ -184,7 +184,7 @@
  #endif
  

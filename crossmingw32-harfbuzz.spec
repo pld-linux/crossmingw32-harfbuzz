@@ -2,7 +2,7 @@ Summary:	HarfBuzz - internationalized text shaping library - MinGW32 cross versi
 Summary(pl.UTF-8):	Rasteryzer fontów TrueType - wersja skrośna dla MinGW32
 Name:		crossmingw32-harfbuzz
 Version:	0.9.28
-Release:	1
+Release:	2
 License:	MIT
 Group:		Development/Libraries
 Source0:	http://www.freedesktop.org/software/harfbuzz/release/harfbuzz-%{version}.tar.bz2
@@ -11,13 +11,13 @@ Patch0:		harfbuzz-mingw32.patch
 URL:		http://www.freedesktop.org/wiki/HarfBuzz
 BuildRequires:	autoconf >= 2.64
 BuildRequires:	automake >= 1:1.13
-BuildRequires:	crossmingw32-cairo >= 1.8.0
+# cairo is used only for utilities, which are not packaged
+#BuildRequires:	crossmingw32-cairo >= 1.8.0
 BuildRequires:	crossmingw32-freetype >= 2.3.8
 BuildRequires:	crossmingw32-glib2 >= 2.16
 BuildRequires:	crossmingw32-gcc-c++
 BuildRequires:	libtool >= 2:2.2
 BuildRequires:	pkgconfig >= 1:0.20
-Requires:	crossmingw32-cairo >= 1.8.0
 Requires:	crossmingw32-freetype >= 2.3.8
 Requires:	crossmingw32-glib2 >= 2.16
 Requires:	crossmingw32-gcc-c++
@@ -77,7 +77,6 @@ Statyczna biblioteka harfbuzz (wersja skrośna MinGW32).
 Summary:	DLL harfbuzz library for Windows
 Summary(pl.UTF-8):	Biblioteka DLL harfbuzz dla Windows
 Group:		Applications/Emulators
-Requires:	crossmingw32-cairo-dll >= 1.8.0
 Requires:	crossmingw32-freetype-dll >= 2.3.8
 Requires:	crossmingw32-glib2-dll >= 2.16
 Requires:	wine
@@ -106,7 +105,7 @@ export PKG_CONFIG_LIBDIR=%{_pkgconfigdir}
 	--disable-gtk-doc \
 	--disable-silent-rules \
 	--enable-static \
-	--with-cairo \
+	--without-cairo \
 	--with-freetype \
 	--with-glib \
 	--without-graphite2 \

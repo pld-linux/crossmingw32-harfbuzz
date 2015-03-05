@@ -1,22 +1,11 @@
---- harfbuzz-0.9.15/src/hb-private.hh.orig	2013-03-19 12:04:53.000000000 +0100
-+++ harfbuzz-0.9.15/src/hb-private.hh	2013-04-07 13:28:22.647401427 +0200
-@@ -33,6 +33,10 @@
- #include "config.h"
- #endif
- 
-+#ifndef _WIN32_WINNT
-+#define _WIN32_WINNT 0x0600
-+#endif
-+
- #include "hb.h"
- #define HB_H_IN
- #ifdef HAVE_OT
-@@ -184,7 +184,7 @@
- #endif
- 
- 
--#if (defined(__WIN32__) && !defined(__WINE__)) || defined(_MSC_VER)
-+#if defined(_MSC_VER)
- #define snprintf _snprintf
- #endif
- 
+--- harfbuzz-0.9.39/src/hb-private.hh.orig	2015-02-26 22:59:13.689932225 +0100
++++ harfbuzz-0.9.39/src/hb-private.hh	2015-03-05 21:56:05.906340574 +0100
+@@ -127,7 +127,7 @@
+ #  elif defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_PC_APP || WINAPI_FAMILY==WINAPI_FAMILY_PHONE_APP)
+ #    define getenv(Name) NULL
+ #  endif
+-#  if (defined(__WIN32__) && !defined(__WINE__)) || defined(_MSC_VER)
++#  if (defined(__WIN32__) && !defined(__WINE__)) && defined(_MSC_VER)
+ #    define snprintf _snprintf
+      /* Windows CE only has _strdup, while rest of Windows has both. */
+ #    define strdup _strdup

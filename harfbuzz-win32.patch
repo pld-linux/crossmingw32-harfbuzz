@@ -10,3 +10,14 @@
  
  static inline uint16_t hb_uint16_swap (const uint16_t v)
  { return (v >> 8) | (v << 8); }
+--- harfbuzz-1.4.5/src/hb-atomic-private.hh.orig	2016-07-13 04:09:47.000000000 +0200
++++ harfbuzz-1.4.5/src/hb-atomic-private.hh	2017-04-09 14:28:37.769359459 +0200
+@@ -67,7 +67,7 @@
+ #define hb_atomic_int_impl_add(AI, V)		InterlockedExchangeAdd (&(AI), (V))
+ 
+ #define hb_atomic_ptr_impl_get(P)		(_HBMemoryBarrier (), (void *) *(P))
+-#define hb_atomic_ptr_impl_cmpexch(P,O,N)	(InterlockedCompareExchangePointer ((void **) (P), (void *) (N), (void *) (O)) == (void *) (O))
++#define hb_atomic_ptr_impl_cmpexch(P,O,N)	(((void*)InterlockedCompareExchange((long volatile*)(void **) (P), (long)(void *) (N), (long)(void *) (O))) == (void *) (O))
+ 
+ 
+ #elif !defined(HB_NO_MT) && defined(__APPLE__)

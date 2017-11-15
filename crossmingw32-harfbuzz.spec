@@ -1,12 +1,12 @@
 Summary:	HarfBuzz - internationalized text shaping library - MinGW32 cross version
 Summary(pl.UTF-8):	Rasteryzer fontów TrueType - wersja skrośna dla MinGW32
 Name:		crossmingw32-harfbuzz
-Version:	1.4.6
+Version:	1.7.0
 Release:	1
 License:	MIT
 Group:		Development/Libraries
 Source0:	https://www.freedesktop.org/software/harfbuzz/release/harfbuzz-%{version}.tar.bz2
-# Source0-md5:	e246c08a3bac98e31e731b2a1bf97edf
+# Source0-md5:	7e70e68ade0ed79719932b38c2130f0a
 Patch0:		harfbuzz-win32.patch
 URL:		https://www.freedesktop.org/wiki/HarfBuzz
 BuildRequires:	autoconf >= 2.64
@@ -15,12 +15,12 @@ BuildRequires:	automake >= 1:1.11.1
 #BuildRequires:	crossmingw32-cairo >= 1.8.0
 BuildRequires:	crossmingw32-freetype >= 2.4.2
 BuildRequires:	crossmingw32-glib2 >= 2.38
-BuildRequires:	crossmingw32-gcc-c++
+BuildRequires:	crossmingw32-gcc-c++ >= 1:4.7
 BuildRequires:	libtool >= 2:2.2
 BuildRequires:	pkgconfig >= 1:0.20
 Requires:	crossmingw32-freetype >= 2.4.2
 Requires:	crossmingw32-glib2 >= 2.38
-Requires:	crossmingw32-gcc-c++
+Requires:	crossmingw32-gcc-c++ >= 1:4.7
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # see <harfbuzz/internal/ftserv.h>, the real horror
@@ -98,7 +98,10 @@ Biblioteka DLL harfbuzz dla Windows.
 %{__autoheader}
 %{__automake}
 export PKG_CONFIG_LIBDIR=%{_pkgconfigdir}
+# MingW32 headers require GNU extensions (-std=c++11 doesn't work)
 %configure \
+	CPPFLAGS="%{rpmcppflags} -D_GNU_SOURCE" \
+	CXXFLAGS="%{rpmcxxflags} -std=gnu++11" \
 	--target=%{target} \
 	--build=i686-pc-linux-gnu \
 	--host=%{target} \

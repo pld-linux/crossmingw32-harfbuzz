@@ -1,12 +1,12 @@
 Summary:	HarfBuzz - internationalized text shaping library - MinGW32 cross version
 Summary(pl.UTF-8):	Rasteryzer fontów TrueType - wersja skrośna dla MinGW32
 Name:		crossmingw32-harfbuzz
-Version:	1.7.5
+Version:	1.7.6
 Release:	1
 License:	MIT
 Group:		Development/Libraries
 Source0:	https://www.freedesktop.org/software/harfbuzz/release/harfbuzz-%{version}.tar.bz2
-# Source0-md5:	1466ab51fc5aaa6af4065936939cec62
+# Source0-md5:	ffb94cf2942327344ac31330d07036ba
 Patch0:		harfbuzz-win32.patch
 URL:		https://www.freedesktop.org/wiki/HarfBuzz
 BuildRequires:	autoconf >= 2.64
@@ -87,6 +87,46 @@ DLL harfbuzz library for Windows.
 %description dll -l pl.UTF-8
 Biblioteka DLL harfbuzz dla Windows.
 
+%package subset
+Summary:	HarfBuzz text shaping library - font subsetter - MinGW32 cross version
+Summary(pl.UTF-8):	Biblioteka HarfBuzz do rysowania tekstu - font subsetter - wersja skrośna dla MinGW32
+Group:		Development/Libraries
+Requires:	%{name} = %{version}-%{release}
+
+%description subset
+HarfBuzz text shaping library - font subsetter.
+
+This package contains the cross version for Win32.
+
+%description subset -l pl.UTF-8
+Biblioteka HarfBuzz do rysowania tekstu - font subsetter.
+
+Ten pakiet zawiera wersję skrośną dla Win32.
+
+%package subset-static
+Summary:	Static HarfBuzz subset library (cross MinGW32 version)
+Summary(pl.UTF-8):	Biblioteka statyczna HarfBuzz subset (wersja skrośna MinGW32)
+Group:		Development/Libraries
+Requires:	%{name}-subset = %{version}-%{release}
+
+%description subset-static
+Static HarfBuzz subset library (cross MinGW32 version).
+
+%description subset-static -l pl.UTF-8
+Biblioteka statyczna HarfBuzz subset (wersja skrośna MinGW32).
+
+%package subset-dll
+Summary:	DLL HarfBuzz subset library for Windows
+Summary(pl.UTF-8):	Biblioteka DLL HarfBuzz subset dla Windows
+Group:		Applications/Emulators
+Requires:	%{name}-dll = %{version}-%{release}
+
+%description subset-dll
+DLL HarfBuzz subset library for Windows.
+
+%description subset-dll -l pl.UTF-8
+Biblioteka DLL HarfBuzz subset dla Windows.
+
 %prep
 %setup -q -n harfbuzz-%{version}
 %patch0 -p1
@@ -143,7 +183,29 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING ChangeLog README TODO
 %{_libdir}/libharfbuzz.dll.a
 %{_libdir}/libharfbuzz.la
-%{_includedir}/harfbuzz
+%dir %{_includedir}/harfbuzz
+%{_includedir}/harfbuzz/hb.h
+%{_includedir}/harfbuzz/hb-blob.h
+%{_includedir}/harfbuzz/hb-buffer.h
+%{_includedir}/harfbuzz/hb-common.h
+%{_includedir}/harfbuzz/hb-deprecated.h
+%{_includedir}/harfbuzz/hb-face.h
+%{_includedir}/harfbuzz/hb-font.h
+%{_includedir}/harfbuzz/hb-ft.h
+%{_includedir}/harfbuzz/hb-glib.h
+%{_includedir}/harfbuzz/hb-ot-font.h
+%{_includedir}/harfbuzz/hb-ot-layout.h
+%{_includedir}/harfbuzz/hb-ot-math.h
+%{_includedir}/harfbuzz/hb-ot-shape.h
+%{_includedir}/harfbuzz/hb-ot-tag.h
+%{_includedir}/harfbuzz/hb-ot-var.h
+%{_includedir}/harfbuzz/hb-ot.h
+%{_includedir}/harfbuzz/hb-set.h
+%{_includedir}/harfbuzz/hb-shape-plan.h
+%{_includedir}/harfbuzz/hb-shape.h
+%{_includedir}/harfbuzz/hb-unicode.h
+%{_includedir}/harfbuzz/hb-uniscribe.h
+%{_includedir}/harfbuzz/hb-version.h
 %{_pkgconfigdir}/harfbuzz.pc
 
 %files static
@@ -152,4 +214,22 @@ rm -rf $RPM_BUILD_ROOT
 
 %files dll
 %defattr(644,root,root,755)
-%{_dlldir}/libharfbuzz-*.dll
+%{_dlldir}/libharfbuzz-0.dll
+
+%files subset
+%defattr(644,root,root,755)
+%{_libdir}/libharfbuzz-subset.dll.a
+%{_libdir}/libharfbuzz-subset.la
+%{_includedir}/harfbuzz/hb-subset.h
+%{_includedir}/harfbuzz/hb-subset-glyf.hh
+%{_includedir}/harfbuzz/hb-subset-plan.hh
+%{_includedir}/harfbuzz/hb-subset-private.hh
+%{_pkgconfigdir}/harfbuzz-subset.pc
+
+%files subset-static
+%defattr(644,root,root,755)
+%{_libdir}/libharfbuzz-subset.a
+
+%files subset-dll
+%defattr(644,root,root,755)
+%{_dlldir}/libharfbuzz-subset-0.dll

@@ -2,7 +2,7 @@ Summary:	HarfBuzz - internationalized text shaping library - MinGW32 cross versi
 Summary(pl.UTF-8):	Rasteryzer fontów TrueType - wersja skrośna dla MinGW32
 Name:		crossmingw32-harfbuzz
 Version:	1.7.6
-Release:	1
+Release:	2
 License:	MIT
 Group:		Development/Libraries
 Source0:	https://www.freedesktop.org/software/harfbuzz/release/harfbuzz-%{version}.tar.bz2
@@ -13,12 +13,12 @@ BuildRequires:	autoconf >= 2.64
 BuildRequires:	automake >= 1:1.11.1
 # cairo is used only for utilities, which are not packaged
 #BuildRequires:	crossmingw32-cairo >= 1.8.0
-BuildRequires:	crossmingw32-freetype >= 2.4.2
+BuildRequires:	crossmingw32-freetype >= 2.9
 BuildRequires:	crossmingw32-glib2 >= 2.38
 BuildRequires:	crossmingw32-gcc-c++ >= 1:4.7
 BuildRequires:	libtool >= 2:2.2
 BuildRequires:	pkgconfig >= 1:0.20
-Requires:	crossmingw32-freetype >= 2.4.2
+Requires:	crossmingw32-freetype >= 2.9
 Requires:	crossmingw32-glib2 >= 2.38
 Requires:	crossmingw32-gcc-c++ >= 1:4.7
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -77,7 +77,7 @@ Statyczna biblioteka harfbuzz (wersja skrośna MinGW32).
 Summary:	DLL harfbuzz library for Windows
 Summary(pl.UTF-8):	Biblioteka DLL harfbuzz dla Windows
 Group:		Applications/Emulators
-Requires:	crossmingw32-freetype-dll >= 2.4.2
+Requires:	crossmingw32-freetype-dll >= 2.9
 Requires:	crossmingw32-glib2-dll >= 2.38
 Requires:	wine
 

@@ -16,11 +16,13 @@ BuildRequires:	automake >= 1:1.11.1
 BuildRequires:	crossmingw32-freetype >= 2.9
 BuildRequires:	crossmingw32-glib2 >= 2.38
 BuildRequires:	crossmingw32-gcc-c++ >= 1:4.7
+BuildRequires:	crossmingw32-pthreads-w32
 BuildRequires:	libtool >= 2:2.2
 BuildRequires:	pkgconfig >= 1:0.20
 Requires:	crossmingw32-freetype >= 2.9
 Requires:	crossmingw32-glib2 >= 2.38
 Requires:	crossmingw32-gcc-c++ >= 1:4.7
+Requires:	crossmingw32-pthreads-w32
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # see <harfbuzz/internal/ftserv.h>, the real horror
@@ -43,7 +45,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %ifnarch %{ix86}
 # arch-specific flags (like alpha's -mieee) are not valid for i386 gcc
-%define		optflags	-O2
+%define		optflags	-O2 -march=i486
 %endif
 # -z options are invalid for mingw linker, most of -f options are Linux-specific
 %define		filterout_ld	-Wl,-z,.*

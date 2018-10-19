@@ -10,17 +10,6 @@
  
  static inline uint16_t hb_uint16_swap (const uint16_t v)
  { return (v >> 8) | (v << 8); }
---- harfbuzz-1.9.0/src/hb-atomic.hh.orig	2018-08-02 20:46:35.868562237 +0200
-+++ harfbuzz-1.9.0/src/hb-atomic.hh	2018-08-02 21:02:03.521884980 +0200
-@@ -104,7 +104,7 @@
- typedef LONG hb_atomic_int_impl_t;
- #define hb_atomic_int_impl_add(AI, V)		InterlockedExchangeAdd ((AI), (V))
- 
--#define hb_atomic_ptr_impl_cmpexch(P,O,N)	(InterlockedCompareExchangePointer ((void **) (P), (void *) (N), (void *) (O)) == (void *) (O))
-+#define hb_atomic_ptr_impl_cmpexch(P,O,N)	(((void*)InterlockedCompareExchangePointer ((long volatile*)(void **) (P), (long)(void *) (N), (long)(void *) (O)) == (void *) (O))
- 
- 
- #elif !defined(HB_NO_MT) && defined(HAVE_INTEL_ATOMIC_PRIMITIVES)
 --- harfbuzz-1.9.0/src/hb.hh.orig	2018-06-08 22:23:00.670122650 +0200
 +++ harfbuzz-1.9.0/src/hb.hh	2018-06-08 22:28:25.200118946 +0200
 @@ -51,7 +51,7 @@

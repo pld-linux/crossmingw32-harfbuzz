@@ -1,16 +1,16 @@
 Summary:	HarfBuzz - internationalized text shaping library - MinGW32 cross version
 Summary(pl.UTF-8):	Rasteryzer fontów TrueType - wersja skrośna dla MinGW32
 Name:		crossmingw32-harfbuzz
-Version:	2.0.2
+Version:	2.1.1
 Release:	1
 License:	MIT
 Group:		Development/Libraries
 Source0:	https://www.freedesktop.org/software/harfbuzz/release/harfbuzz-%{version}.tar.bz2
-# Source0-md5:	e899bc8ae1acc58f8cd1c116edd4d70b
+# Source0-md5:	246535f1ba011235650b3da8fcca2456
 Patch0:		harfbuzz-win32.patch
 URL:		https://www.freedesktop.org/wiki/HarfBuzz
 BuildRequires:	autoconf >= 2.64
-BuildRequires:	automake >= 1:1.11.1
+BuildRequires:	automake >= 1:1.13.0
 # cairo is used only for utilities, which are not packaged
 #BuildRequires:	crossmingw32-cairo >= 1.8.0
 BuildRequires:	crossmingw32-freetype >= 2.9
@@ -197,12 +197,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/harfbuzz/hb-ft.h
 %{_includedir}/harfbuzz/hb-glib.h
 %{_includedir}/harfbuzz/hb-map.h
+%{_includedir}/harfbuzz/hb-ot-color.h
 %{_includedir}/harfbuzz/hb-ot-font.h
 %{_includedir}/harfbuzz/hb-ot-layout.h
 %{_includedir}/harfbuzz/hb-ot-math.h
 %{_includedir}/harfbuzz/hb-ot-name.h
 %{_includedir}/harfbuzz/hb-ot-shape.h
-%{_includedir}/harfbuzz/hb-ot-tag.h
 %{_includedir}/harfbuzz/hb-ot-var.h
 %{_includedir}/harfbuzz/hb-ot.h
 %{_includedir}/harfbuzz/hb-set.h

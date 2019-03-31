@@ -21,8 +21,8 @@
  #include <intrin.h>
  #endif
  
---- harfbuzz-1.8.5/src/hb-dsalgs.hh.orig	2018-07-17 16:29:54.000000000 +0200
-+++ harfbuzz-1.8.5/src/hb-dsalgs.hh	2018-08-02 21:15:43.988542278 +0200
+--- harfbuzz-2.4.0/src/hb-algs.hh.orig	2018-07-17 16:29:54.000000000 +0200
++++ harfbuzz-2.4.0/src/hb-algs.hh	2018-08-02 21:15:43.988542278 +0200
 @@ -98,7 +98,7 @@
      return sizeof (unsigned long long) * 8 - __builtin_clzll (v);
  #endif

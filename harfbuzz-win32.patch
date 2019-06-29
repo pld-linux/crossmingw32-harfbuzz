@@ -10,34 +10,3 @@
  
  static inline uint16_t hb_uint16_swap (const uint16_t v)
  { return (v >> 8) | (v << 8); }
---- harfbuzz-1.9.0/src/hb.hh.orig	2018-06-08 22:23:00.670122650 +0200
-+++ harfbuzz-1.9.0/src/hb.hh	2018-06-08 22:28:25.200118946 +0200
-@@ -51,7 +51,7 @@
- #include <stdio.h>
- #include <stdarg.h>
- 
--#if (defined(_MSC_VER) && _MSC_VER >= 1500) || defined(__MINGW32__)
-+#if (defined(_MSC_VER) && _MSC_VER >= 1500)
- #include <intrin.h>
- #endif
- 
---- harfbuzz-2.4.0/src/hb-algs.hh.orig	2018-07-17 16:29:54.000000000 +0200
-+++ harfbuzz-2.4.0/src/hb-algs.hh	2018-08-02 21:15:43.988542278 +0200
-@@ -98,7 +98,7 @@
-     return sizeof (unsigned long long) * 8 - __builtin_clzll (v);
- #endif
- 
--#if (defined(_MSC_VER) && _MSC_VER >= 1500) || defined(__MINGW32__)
-+#if (defined(_MSC_VER) && _MSC_VER >= 1500)
-   if (sizeof (T) <= sizeof (unsigned int))
-   {
-     unsigned long where;
-@@ -172,7 +172,7 @@
-     return __builtin_ctzll (v);
- #endif
- 
--#if (defined(_MSC_VER) && _MSC_VER >= 1500) || defined(__MINGW32__)
-+#if (defined(_MSC_VER) && _MSC_VER >= 1500)
-   if (sizeof (T) <= sizeof (unsigned int))
-   {
-     unsigned long where;

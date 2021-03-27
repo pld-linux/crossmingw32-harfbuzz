@@ -7,7 +7,6 @@ License:	MIT
 Group:		Development/Libraries
 Source0:	https://github.com/harfbuzz/harfbuzz/archive/%{version}/harfbuzz-%{version}.tar.gz
 # Source0-md5:	0e9f31ef707926e85aeb4b866c64889f
-Patch0:		harfbuzz-win32.patch
 URL:		https://harfbuzz.github.io/
 BuildRequires:	autoconf >= 2.64
 BuildRequires:	automake >= 1:1.13.0
@@ -134,7 +133,6 @@ Biblioteka DLL HarfBuzz subset dla Windows.
 
 %prep
 %setup -q -n harfbuzz-%{version}
-%patch0 -p1
 
 %build
 %{__libtoolize}

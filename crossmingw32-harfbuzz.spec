@@ -1,12 +1,12 @@
 Summary:	HarfBuzz - internationalized text shaping library - MinGW32 cross version
 Summary(pl.UTF-8):	Rasteryzer fontów TrueType - wersja skrośna dla MinGW32
 Name:		crossmingw32-harfbuzz
-Version:	3.1.1
+Version:	3.1.2
 Release:	1
 License:	MIT
 Group:		Development/Libraries
-Source0:	https://github.com/harfbuzz/harfbuzz/archive/%{version}/harfbuzz-%{version}.tar.gz
-# Source0-md5:	6d0a0359efda30ec8e5611f9006120b7
+Source0:	https://github.com/harfbuzz/harfbuzz/releases/download/%{version}/harfbuzz-%{version}.tar.xz
+# Source0-md5:	fabbb4bafe030877a21f7bbc0c7cba05
 URL:		https://harfbuzz.github.io/
 BuildRequires:	autoconf >= 2.64
 BuildRequires:	automake >= 1:1.13.0
@@ -20,6 +20,8 @@ BuildRequires:	crossmingw32-pthreads-w32
 BuildRequires:	gtk-doc >= 1.15
 BuildRequires:	libtool >= 2:2.2
 BuildRequires:	pkgconfig >= 1:0.28
+BuildRequires:	tar >= 1:1.22
+BuildRequires:	xz
 Requires:	crossmingw32-freetype >= 2.9
 Requires:	crossmingw32-glib2 >= 2.38
 Requires:	crossmingw32-gcc-c++ >= 1:4.7

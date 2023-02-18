@@ -1,18 +1,17 @@
 Summary:	HarfBuzz - internationalized text shaping library - MinGW32 cross version
 Summary(pl.UTF-8):	Rasteryzer fontów TrueType - wersja skrośna dla MinGW32
 Name:		crossmingw32-harfbuzz
-Version:	6.0.0
+Version:	7.0.0
 Release:	1
 License:	MIT
 Group:		Development/Libraries
 Source0:	https://github.com/harfbuzz/harfbuzz/releases/download/%{version}/harfbuzz-%{version}.tar.xz
-# Source0-md5:	a3f9e51043a5a14b409c52fe4ab1e29e
+# Source0-md5:	5c7a6750760e4d6c098436a43542a7d0
 URL:		https://harfbuzz.github.io/
 BuildRequires:	autoconf >= 2.64
 BuildRequires:	automake >= 1:1.13.0
 BuildRequires:	crossmingw32-w32api >= 5.0.2-8
-# cairo is used only for utilities, which are not packaged
-#BuildRequires:	crossmingw32-cairo >= 1.8.0
+BuildRequires:	crossmingw32-cairo >= 1.8.0
 BuildRequires:	crossmingw32-freetype >= 2.11
 BuildRequires:	crossmingw32-glib2 >= 2.38
 BuildRequires:	crossmingw32-gcc-c++ >= 1:4.7
@@ -93,6 +92,49 @@ DLL harfbuzz library for Windows.
 %description dll -l pl.UTF-8
 Biblioteka DLL harfbuzz dla Windows.
 
+%package cairo
+Summary:	HarfBuzz text shaping library - cairo integration - MinGW32 cross version
+Summary(pl.UTF-8):	Biblioteka HarfBuzz do rysowania tekstu - integracja z cairo - wersja skrośna dla MinGW32
+Group:		Development/Libraries
+Requires:	%{name} = %{version}-%{release}
+Requires:	crossmingw32-cairo >= 1.8.0
+
+%description cairo
+HarfBuzz text shaping library - cairo integration.
+
+This package contains the cross version for Win32.
+
+%description cairo -l pl.UTF-8
+Biblioteka HarfBuzz do rysowania tekstu - integracja z cairo.
+
+Ten pakiet zawiera wersję skrośną dla Win32.
+
+%package cairo-static
+Summary:	Static HarfBuzz cairo library (cross MinGW32 version)
+Summary(pl.UTF-8):	Biblioteka statyczna HarfBuzz cairo (wersja skrośna MinGW32)
+Group:		Development/Libraries
+Requires:	%{name}-cairo-devel = %{version}-%{release}
+
+%description cairo-static
+Static HarfBuzz cairo library (cross MinGW32 version).
+
+%description cairo-static -l pl.UTF-8
+Biblioteka statyczna HarfBuzz cairo (wersja skrośna MinGW32).
+
+%package cairo-dll
+Summary:	DLL harfbuzz cairo library for Windows
+Summary(pl.UTF-8):	Biblioteka DLL harfbuzz cairo dla Windows
+Group:		Applications/Emulators
+Requires:	%{name}-dll = %{version}-%{release}
+Requires:	crossmingw32-cairo-dll >= 1.8.0
+Requires:	wine
+
+%description cairo-dll
+DLL harfbuzz cairo library for Windows.
+
+%description cairo-dll -l pl.UTF-8
+Biblioteka DLL harfbuzz cairo dla Windows.
+
 %package subset
 Summary:	HarfBuzz text shaping library - font subsetter - MinGW32 cross version
 Summary(pl.UTF-8):	Biblioteka HarfBuzz do rysowania tekstu - font subsetter - wersja skrośna dla MinGW32
@@ -155,7 +197,7 @@ export PKG_CONFIG_LIBDIR=%{_pkgconfigdir}
 	--disable-gtk-doc \
 	--disable-silent-rules \
 	--enable-static \
-	--without-cairo \
+	--with-cairo \
 	--with-freetype \
 	--with-glib \
 	--without-graphite2 \
@@ -218,6 +260,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/harfbuzz/hb-ot-shape.h
 %{_includedir}/harfbuzz/hb-ot-var.h
 %{_includedir}/harfbuzz/hb-ot.h
+%{_includedir}/harfbuzz/hb-paint.h
 %{_includedir}/harfbuzz/hb-set.h
 %{_includedir}/harfbuzz/hb-shape-plan.h
 %{_includedir}/harfbuzz/hb-shape.h
@@ -234,6 +277,20 @@ rm -rf $RPM_BUILD_ROOT
 %files dll
 %defattr(644,root,root,755)
 %{_dlldir}/libharfbuzz-0.dll
+
+%files cairo
+%defattr(644,root,root,755)
+%{_libdir}/libharfbuzz-cairo.dll.a
+%{_includedir}/harfbuzz/hb-cairo.h
+%{_pkgconfigdir}/harfbuzz-cairo.pc
+
+%files cairo-static
+%defattr(644,root,root,755)
+%{_libdir}/libharfbuzz-cairo.a
+
+%files cairo-dll
+%defattr(644,root,root,755)
+%{_dlldir}/libharfbuzz-cairo-0.dll
 
 %files subset
 %defattr(644,root,root,755)

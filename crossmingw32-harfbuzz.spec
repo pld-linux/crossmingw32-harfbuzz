@@ -1,15 +1,13 @@
 Summary:	HarfBuzz - internationalized text shaping library - MinGW32 cross version
 Summary(pl.UTF-8):	Rasteryzer fontów TrueType - wersja skrośna dla MinGW32
 Name:		crossmingw32-harfbuzz
-Version:	8.5.0
+Version:	9.0.0
 Release:	1
 License:	MIT
 Group:		Development/Libraries
 Source0:	https://github.com/harfbuzz/harfbuzz/releases/download/%{version}/harfbuzz-%{version}.tar.xz
-# Source0-md5:	81b9d7f1e19ce99c758d598c63543487
+# Source0-md5:	0035c129cb1646ab1cff65e5ef7153db
 URL:		https://harfbuzz.github.io/
-BuildRequires:	autoconf >= 2.64
-BuildRequires:	automake >= 1:1.13.0
 BuildRequires:	crossmingw32-w32api >= 5.0.2-8
 BuildRequires:	crossmingw32-cairo >= 1.10.0
 BuildRequires:	crossmingw32-freetype >= 2.11
@@ -17,7 +15,8 @@ BuildRequires:	crossmingw32-glib2 >= 2.38
 BuildRequires:	crossmingw32-gcc-c++ >= 1:4.7
 BuildRequires:	crossmingw32-pthreads-w32
 BuildRequires:	gtk-doc >= 1.15
-BuildRequires:	libtool >= 2:2.2
+BuildRequires:	meson >= 0.55.0
+BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig >= 1:0.28
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
@@ -178,45 +177,45 @@ Biblioteka DLL HarfBuzz subset dla Windows.
 %prep
 %setup -q -n harfbuzz-%{version}
 
-%build
-%{__libtoolize}
-%{__gtkdocize}
-%{__aclocal} -I m4
-%{__autoconf}
-%{__autoheader}
-%{__automake}
-export PKG_CONFIG_LIBDIR=%{_pkgconfigdir}
-# MingW32 headers require GNU extensions (-std=c++11 doesn't work)
-%configure \
-	CPPFLAGS="%{rpmcppflags} -D_GNU_SOURCE" \
-	CXXFLAGS="%{rpmcxxflags} -std=gnu++11" \
-	PTHREAD_LIBS="-lpthread" \
-	--target=%{target} \
-	--build=i686-pc-linux-gnu \
-	--host=%{target} \
-	--disable-gtk-doc \
-	--disable-silent-rules \
-	--enable-static \
-	--with-cairo \
-	--with-freetype \
-	--with-glib \
-	--without-graphite2 \
-	--with-html-dir=%{_gtkdocdir} \
-	--without-icu \
-	--with-uniscribe
+cat > meson-cross.txt <<'EOF'
+[host_machine]
+system = 'windows'
+cpu_family = 'x86'
+cpu = 'i386'
+endian='little'
+[binaries]
+c = '%{target}-gcc'
+cpp = '%{target}-g++'
+ar = '%{target}-ar'
+windres = '%{target}-windres'
+pkgconfig = 'pkg-config'
+[properties]
+c_args = ['%(echo %{rpmcflags} | sed -e "s/ \+/ /g;s/ /', '/g")']
+cpp_args = ['%(echo %{rpmcxxflags} | sed -e "s/ \+/ /g;s/ /', '/g")', '-std=gnu++11']
+EOF
 
-%{__make}
+%build
+%meson build \
+	--cross-file meson-cross.txt \
+	-Dcairo=enabled \
+	-Ddocs=disabled \
+	-Dfreetype=enabled \
+	-Dgdi=enabled \
+	-Dglib=enabled \
+	-Dgobject=disabled \
+	-Dgraphite2=disabled \
+	-Dicu=disabled \
+	-Dtests=disabled
+
+%ninja_build -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+%ninja_install -C build
 
 install -d $RPM_BUILD_ROOT%{_dlldir}
 %{__mv} $RPM_BUILD_ROOT%{_prefix}/bin/*.dll $RPM_BUILD_ROOT%{_dlldir}
-
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/lib*.la
 
 %if 0%{!?debug:1}
 %{target}-strip --strip-unneeded -R.comment -R.note $RPM_BUILD_ROOT%{_dlldir}/*.dll
@@ -248,6 +247,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/harfbuzz/hb-features.h
 %{_includedir}/harfbuzz/hb-font.h
 %{_includedir}/harfbuzz/hb-ft.h
+%{_includedir}/harfbuzz/hb-gdi.h
 %{_includedir}/harfbuzz/hb-glib.h
 %{_includedir}/harfbuzz/hb-map.h
 %{_includedir}/harfbuzz/hb-ot-color.h

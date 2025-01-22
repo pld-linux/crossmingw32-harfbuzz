@@ -1,12 +1,12 @@
 Summary:	HarfBuzz - internationalized text shaping library - MinGW32 cross version
 Summary(pl.UTF-8):	Rasteryzer fontów TrueType - wersja skrośna dla MinGW32
 Name:		crossmingw32-harfbuzz
-Version:	10.1.0
+Version:	10.2.0
 Release:	1
 License:	MIT
 Group:		Development/Libraries
 Source0:	https://github.com/harfbuzz/harfbuzz/releases/download/%{version}/harfbuzz-%{version}.tar.xz
-# Source0-md5:	75969de59a3e09f7a7fb34dbbacb3b68
+# Source0-md5:	f68c05409f18b4a044d71628548aacd9
 URL:		https://harfbuzz.github.io/
 BuildRequires:	crossmingw32-w32api >= 5.0.2-8
 BuildRequires:	crossmingw32-cairo >= 1.10.0
@@ -15,7 +15,7 @@ BuildRequires:	crossmingw32-glib2 >= 2.38
 BuildRequires:	crossmingw32-gcc-c++ >= 1:4.7
 BuildRequires:	crossmingw32-pthreads-w32
 BuildRequires:	gtk-doc >= 1.15
-BuildRequires:	meson >= 0.55.0
+BuildRequires:	meson >= 0.56.0
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig >= 1:0.28
 BuildRequires:	tar >= 1:1.22
@@ -188,8 +188,8 @@ c = '%{target}-gcc'
 cpp = '%{target}-g++'
 ar = '%{target}-ar'
 windres = '%{target}-windres'
-pkgconfig = 'pkg-config'
-[properties]
+pkg-config = 'pkg-config'
+[built-in options]
 c_args = ['%(echo %{rpmcflags} | sed -e "s/ \+/ /g;s/ /', '/g")']
 cpp_args = ['%(echo %{rpmcxxflags} | sed -e "s/ \+/ /g;s/ /', '/g")', '-std=gnu++11']
 EOF
@@ -297,7 +297,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_libdir}/libharfbuzz-subset.dll.a
 %{_includedir}/harfbuzz/hb-subset.h
-%{_includedir}/harfbuzz/hb-subset-repacker.h
+%{_includedir}/harfbuzz/hb-subset-serialize.h
 %{_pkgconfigdir}/harfbuzz-subset.pc
 
 %files subset-static

@@ -1,12 +1,12 @@
 Summary:	HarfBuzz - internationalized text shaping library - MinGW32 cross version
 Summary(pl.UTF-8):	Rasteryzer fontów TrueType - wersja skrośna dla MinGW32
 Name:		crossmingw32-harfbuzz
-Version:	10.2.0
+Version:	10.4.0
 Release:	1
 License:	MIT
 Group:		Development/Libraries
 Source0:	https://github.com/harfbuzz/harfbuzz/releases/download/%{version}/harfbuzz-%{version}.tar.xz
-# Source0-md5:	f68c05409f18b4a044d71628548aacd9
+# Source0-md5:	9ff3796c1b8ae03540e466168c6a5bd1
 URL:		https://harfbuzz.github.io/
 BuildRequires:	crossmingw32-w32api >= 5.0.2-8
 BuildRequires:	crossmingw32-cairo >= 1.10.0
@@ -18,6 +18,7 @@ BuildRequires:	gtk-doc >= 1.15
 BuildRequires:	meson >= 0.56.0
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig >= 1:0.28
+BuildRequires:	rpmbuild(macros) >= 2.042
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 Requires:	crossmingw32-freetype >= 2.11
@@ -195,9 +196,10 @@ cpp_args = ['%(echo %{rpmcxxflags} | sed -e "s/ \+/ /g;s/ /', '/g")', '-std=gnu+
 EOF
 
 %build
-%meson build \
+%meson \
 	--cross-file meson-cross.txt \
 	-Dcairo=enabled \
+	-Dchafa=disabled \
 	-Ddocs=disabled \
 	-Dfreetype=enabled \
 	-Dgdi=enabled \
@@ -205,14 +207,15 @@ EOF
 	-Dgobject=disabled \
 	-Dgraphite2=disabled \
 	-Dicu=disabled \
+	-Dintrospection=disabled \
 	-Dtests=disabled
 
-%ninja_build -C build
+%meson_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%ninja_install -C build
+%meson_install
 
 install -d $RPM_BUILD_ROOT%{_dlldir}
 %{__mv} $RPM_BUILD_ROOT%{_prefix}/bin/*.dll $RPM_BUILD_ROOT%{_dlldir}

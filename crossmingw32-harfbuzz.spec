@@ -1,12 +1,12 @@
 Summary:	HarfBuzz - internationalized text shaping library - MinGW32 cross version
 Summary(pl.UTF-8):	Rasteryzer fontów TrueType - wersja skrośna dla MinGW32
 Name:		crossmingw32-harfbuzz
-Version:	11.0.1
+Version:	11.1.0
 Release:	1
 License:	MIT
 Group:		Development/Libraries
 Source0:	https://github.com/harfbuzz/harfbuzz/releases/download/%{version}/harfbuzz-%{version}.tar.xz
-# Source0-md5:	5de828e8e05c3f69d98c3c34eb6faa5c
+# Source0-md5:	08ec9e7844e2aa2fddc37bf69114cdfa
 URL:		https://harfbuzz.github.io/
 BuildRequires:	crossmingw32-w32api >= 5.0.2-8
 BuildRequires:	crossmingw32-cairo >= 1.10.0
@@ -15,7 +15,7 @@ BuildRequires:	crossmingw32-glib2 >= 2.38
 BuildRequires:	crossmingw32-gcc-c++ >= 1:4.7
 BuildRequires:	crossmingw32-pthreads-w32
 BuildRequires:	gtk-doc >= 1.15
-BuildRequires:	meson >= 0.56.0
+BuildRequires:	meson >= 0.60.0
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig >= 1:0.28
 BuildRequires:	rpmbuild(macros) >= 2.042
@@ -266,6 +266,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/harfbuzz/hb-ot-var.h
 %{_includedir}/harfbuzz/hb-ot.h
 %{_includedir}/harfbuzz/hb-paint.h
+%{_includedir}/harfbuzz/hb-script-list.h
 %{_includedir}/harfbuzz/hb-set.h
 %{_includedir}/harfbuzz/hb-shape-plan.h
 %{_includedir}/harfbuzz/hb-shape.h
